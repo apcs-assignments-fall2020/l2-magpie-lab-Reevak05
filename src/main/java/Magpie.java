@@ -35,13 +35,35 @@ public class Magpie
         {
             response = "Say something, please.";
         }
+
+         else if (statement.toLowerCase().indexOf("i want to ")==0)
+        {
+            response = transformIWantToStatement(statement);
+        }
+
+        else if (statement.toLowerCase().indexOf("i want ")==0)
+        {
+            response = transformIWantStatement(statement);
+        }
+
+        else if (statement.toLowerCase().indexOf("i ")==0 && statement.indexOf("you")==statement.length()-3)
+        {
+            response = transformIYouStatement(statement);
+        }
+
+        else if (statement.toLowerCase().indexOf("you ")==0 && statement.indexOf("me")==statement.length()-2)
+        {
+            response = transformYouMeStatement(statement);
+        }
+
         else if (findWord(statement, "car") >= 0)
         {
             response = "I like cars!";
         }
         else if (findWord(statement, "angry") >= 0
                 || findWord(statement, "mad") >= 0
-                || findWord(statement, "furious") >= 0)
+                || findWord(statement, "furious") >= 0
+                || findWord(statement, "shut up") >= 0)
         {
             response = "What is upsetting you today?";
         }
@@ -124,14 +146,13 @@ public class Magpie
 
     // The method returns the index of the first character in word
     // if it is found, and returns -1 otherwise. 
-    //not working properly
+
+
+    //much more concise solution from Nathan('s student))
     public int findWord(String str, String word) {
-        str = str.toLowerCase().trim();
-        word = word.toLowerCase().trim();
-        if (str.indexOf(word)==1) if (str.charAt(word.length())==' ') return str.indexOf(word);
-        else if (str.indexOf(word)>1) if (str.indexOf(" "+word+" ")!=-1) return str.indexOf(" "+word+" ");
-        else if (str.indexOf(word)==str.length()-word.length()) if (str.indexOf(" "+word)==(str.length()-word.length())-1) return (str.length()-word.length());
-        return -1;
+        str = " "+str.toLowerCase().trim()+" ";
+        word = " "+word.toLowerCase().trim()+" "; 
+        return str.indexOf(word);
     }
 
     
@@ -145,8 +166,7 @@ public class Magpie
      */
     public String transformIWantStatement(String statement)
     {
-        //your code here
-        return "";
+        return "Would you really be happy if you had " + statement.substring(7, statement.length())+"?";
     }
 
     /**
@@ -158,7 +178,7 @@ public class Magpie
     public String transformIYouStatement(String statement)
     {
         //your code here
-        return "";
+        return "Why do you " + statement.substring(2, statement.length()-4) + " me?";
     }
 
     /**
@@ -170,10 +190,8 @@ public class Magpie
     public String transformIWantToStatement(String statement)
     {
         // your code here
-        return "";
+        return "What would it mean to " + statement.substring(10, statement.length())+"?";
     }
-
-
 
 
     /**
@@ -185,6 +203,6 @@ public class Magpie
     public String transformYouMeStatement(String statement)
     {
         // your code here
-        return "";
+        return "What makes you think that I " + statement.substring(statement.indexOf("you")+4, statement.length()-3)+" you?";
     }
 }
