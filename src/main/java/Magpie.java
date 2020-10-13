@@ -131,7 +131,7 @@ public class Magpie
         }
         else if (whichResponse == 5)
         {
-            response = "What make you say that?";
+            response = "What made you say that?";
         }
     
         return response;
